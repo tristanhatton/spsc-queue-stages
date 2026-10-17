@@ -1,0 +1,12 @@
+---
+Language: Cpp
+BasedOnStyle: Google
+Standard: Latest
+DerivePointerAlignment: false
+PointerAlignment: Left
+QualifierAlignment: Right
+InsertBraces: true
+AllowShortIfStatementsOnASingleLine: Never
+AllowShortLoopsOnASingleLine: false
+IncludeBlocks: Regroup
+...
