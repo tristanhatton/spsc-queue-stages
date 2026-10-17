@@ -28,7 +28,8 @@ function(spsc_add_queue stage build)
 endfunction()
 
 set(SPSC_STAGES
-    v0_mutex)
+    v0_mutex
+    v1_atomics)
 
 add_subdirectory(common)
 foreach(stage IN LISTS SPSC_STAGES)
