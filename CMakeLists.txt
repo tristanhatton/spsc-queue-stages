@@ -31,7 +31,8 @@ set(SPSC_STAGES
     v0_mutex
     v1_atomics
     v2_padding
-    v3_cached_cursors)
+    v3_cached_cursors
+    v4_build_flags)
 
 add_subdirectory(common)
 foreach(stage IN LISTS SPSC_STAGES)
