@@ -1,0 +1,1 @@
+spsc_add_queue(v3_cached_cursors plain)

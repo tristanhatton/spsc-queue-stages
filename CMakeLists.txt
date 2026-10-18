@@ -30,7 +30,8 @@ endfunction()
 set(SPSC_STAGES
     v0_mutex
     v1_atomics
-    v2_padding)
+    v2_padding
+    v3_cached_cursors)
 
 add_subdirectory(common)
 foreach(stage IN LISTS SPSC_STAGES)
