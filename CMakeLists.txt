@@ -33,7 +33,8 @@ set(SPSC_STAGES
     v2_padding
     v3_cached_cursors
     v4_build_flags
-    v5_slot_ticket)
+    v5_slot_ticket
+    v6_narrow_barriers)
 
 add_subdirectory(common)
 foreach(stage IN LISTS SPSC_STAGES)
