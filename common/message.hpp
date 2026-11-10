@@ -14,6 +14,8 @@ struct Message {
   std::uint32_t instrument;
   std::uint16_t side;
   std::uint16_t flags;
+
+  auto operator==(Message const&) const -> bool = default;
 };
 static_assert(sizeof(Message) == 48);
 

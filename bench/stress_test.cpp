@@ -38,11 +38,6 @@ auto make_message(std::uint64_t const seq) -> spsc::Message {
   return std::bit_cast<spsc::Message>(words);
 }
 
-auto same(spsc::Message const& a, spsc::Message const& b) -> bool {
-  using Bytes = std::array<std::byte, sizeof(spsc::Message)>;
-  return std::bit_cast<Bytes>(a) == std::bit_cast<Bytes>(b);
-}
-
 auto rejects_invalid_capacity() -> void {
   for (auto const capacity : {0uz, 3uz, 6uz, 1000uz}) {
     auto threw = false;
@@ -69,7 +64,7 @@ auto fills_and_drains(std::size_t const capacity) -> void {
     CHECK(!queue.try_push(make_message(0)));
     for (auto i = 0uz; i < capacity; ++i) {
       CHECK(queue.try_pop(out));
-      CHECK(same(out, make_message(lap * capacity + i)));
+      CHECK(out == make_message(lap * capacity + i));
       CHECK(queue.size() == capacity - i - 1);
     }
     CHECK(!queue.try_pop(out));
@@ -96,7 +91,7 @@ auto transfers_concurrently(std::size_t const capacity,
         if (!queue.try_pop(out)) {
           continue;
         }
-        CHECK(same(out, make_message(n)));
+        CHECK(out == make_message(n));
         ++n;
         maybe_stall(rng);
       }

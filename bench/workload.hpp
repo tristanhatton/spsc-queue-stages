@@ -2,7 +2,6 @@
 
 #include <cstddef>
 #include <cstdint>
-#include <cstring>
 #include <vector>
 
 #include "message.hpp"
@@ -32,8 +31,7 @@ inline auto make_message(std::uint64_t const seq,
 
 inline auto matches(spsc::Message const& msg, std::uint64_t const seq,
                     std::uint64_t const send_tsc) noexcept -> bool {
-  auto const expected = make_message(seq, send_tsc);
-  return std::memcmp(&msg, &expected, sizeof(spsc::Message)) == 0;
+  return msg == make_message(seq, send_tsc);
 }
 
 }  // namespace bench
