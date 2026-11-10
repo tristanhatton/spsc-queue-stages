@@ -63,7 +63,7 @@ auto Runner::produce(int const round) -> void {
     auto const due = start + schedule_[i];
     while (tsc_now() < due) {
     }
-    auto const msg = make_message(i, due);
+    auto const msg = spsc::Message::from_sequence(i, due);
     while (!queue_.try_push(msg)) {
       cpu_relax();
     }
@@ -102,7 +102,9 @@ auto Runner::receive_round(std::uint64_t const start) -> std::uint64_t {
     auto const now = tsc_after_loads();
     auto const due = start + schedule[n];
     latencies[n] = latency_ticks(now, due);
-    corrupted += matches(msg, n, due) ? 0 : 1;
+    if (msg != spsc::Message::from_sequence(n, due)) {
+      ++corrupted;
+    }
   }
   return corrupted;
 }
